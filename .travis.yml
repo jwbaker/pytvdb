@@ -4,5 +4,5 @@ python:
 install:
   - "pip install ."
   - "pip install coveralls"
-script: "coverage run --source=pytvdb pytest"
+script: "pytest --cov=pytvdb"
 after_success: "coveralls"

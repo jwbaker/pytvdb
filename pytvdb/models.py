@@ -1,6 +1,6 @@
 from datetime import date
 
-__all__ = ['Series']
+__all__ = ['SeriesSearchData']
 
 
 class BaseModel:
@@ -15,9 +15,9 @@ class BaseModel:
         return func(arg) if arg else None
 
 
-class Series(BaseModel):
+class SeriesSearchData(BaseModel):
     def __init__(self, **kwargs):
-        super(Series, self).__init__({
+        super(SeriesSearchData, self).__init__({
             'aliases': list,
             'banner': str,
             'firstAired': lambda s: date(*map(int, s.split('-'))),
@@ -59,3 +59,7 @@ class Series(BaseModel):
     @property
     def status(self):
         return self._attrs.get('status')
+
+    @staticmethod
+    def params():
+        return ['name', 'imdbId', 'zap2itId']

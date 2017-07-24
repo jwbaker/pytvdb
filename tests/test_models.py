@@ -2,7 +2,7 @@ import datetime
 
 import pytest
 
-from pytvdb.models import Series
+from pytvdb.models import SeriesSearchData
 
 
 class TestUnitSeriesModel:
@@ -24,7 +24,7 @@ class TestUnitSeriesModel:
             "seriesName": "Doctor Who",
             "status": "Ended"
         }
-        s = Series(**data)
+        s = SeriesSearchData(**data)
         assert len(s.aliases) == 2
         assert s.banner == data['banner']
         assert s.first_aired == datetime.date(1963, 11, 23)

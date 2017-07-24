@@ -3,7 +3,7 @@ from datetime import timedelta
 import requests
 from ttldict import TTLOrderedDict
 
-from .models import Series
+from . import models
 
 __all__ = ['Search']
 
@@ -69,4 +69,4 @@ class Search(TVDB):
             params['zap2itId'] = zap_2_it_id
 
         res = self.make_request('/search/series', params)
-        return [Series(**d) for d in res['data']]
+        return [models.SeriesSearchData(**d) for d in res['data']]

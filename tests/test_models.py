@@ -37,5 +37,5 @@ class TestUnitSeriesModel:
             'nosuchfield': 'blah'
         }
         s = Series(**data)
-        with pytest.raises(KeyError):
+        with pytest.raises(AttributeError):
             assert not s.nosuchfield

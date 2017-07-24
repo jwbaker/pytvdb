@@ -34,8 +34,9 @@ class TVDB:
             'Accept': 'application/json'
         }
 
-        if self._version:
+        try:
             headers['Accept'] = 'application/vnd.thetvdb.v' + self._version
+        except AttributeError: pass
 
         return headers
 
@@ -43,7 +44,9 @@ class TVDB:
         try:
             return self.__class__.TOKEN_CACHE['token']
         except KeyError:
-            r = requests.post(self.__class__.BASE_URL + '/login', data={'apikey': self._api_key})
+            headers = {'Content-Type': 'application/json'}
+            payload = {'apikey': self._api_key}
+            r = requests.post(self.__class__.BASE_URL + '/login', json=payload, headers=headers)
             r.raise_for_status()
             token = r.json()['token']
             self.__class__.TOKEN_CACHE['token'] = token
@@ -66,4 +69,4 @@ class Search(TVDB):
             params['zap2itId'] = zap_2_it_id
 
         res = self.make_request('/search/series', params)
-        return [Series(**d) for d in res]
+        return [Series(**d) for d in res['data']]

@@ -27,17 +27,9 @@ class TestUnitSeriesModel:
         s = Series(**data)
         assert len(s.aliases) == 2
         assert s.banner == data['banner']
-        assert s.firstAired == datetime.date(1963, 11, 23)
+        assert s.first_aired == datetime.date(1963, 11, 23)
         assert s.id == data['id']
         assert s.network == data['network']
         assert s.overview == data['overview']
-        assert s.seriesName == data['seriesName']
+        assert s.series_name == data['seriesName']
         assert s.status == data['status']
-
-    def test_bad_fields_not_set(self):
-        data = {
-            'nosuchfield': 'blah'
-        }
-        s = Series(**data)
-        with pytest.raises(AttributeError):
-            assert not s.nosuchfield

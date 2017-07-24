@@ -1,0 +1,1 @@
+![Build Status](https://img.shields.io/travis/jabaker/pytvdb.svg)

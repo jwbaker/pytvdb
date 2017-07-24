@@ -1,3 +1,5 @@
+import pytest
+
 from pytvdb.models import Series
 
 
@@ -29,3 +31,11 @@ class TestUnitSeriesModel:
         assert s.overview == data['overview']
         assert s.seriesName == data['seriesName']
         assert s.status == data['status']
+
+    def test_bad_fields_not_set(self):
+        data = {
+            'nosuchfield': 'blah'
+        }
+        s = Series(**data)
+        with pytest.raises(KeyError):
+            assert not s.nosuchfield

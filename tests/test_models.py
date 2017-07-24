@@ -1,3 +1,5 @@
+import datetime
+
 import pytest
 
 from pytvdb.models import Series
@@ -25,7 +27,7 @@ class TestUnitSeriesModel:
         s = Series(**data)
         assert len(s.aliases) == 2
         assert s.banner == data['banner']
-        assert s.firstAired == data['firstAired']
+        assert s.firstAired == datetime.date(1963, 11, 23)
         assert s.id == data['id']
         assert s.network == data['network']
         assert s.overview == data['overview']

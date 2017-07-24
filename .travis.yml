@@ -1,0 +1,5 @@
+language: python
+python:
+  - "3.6"
+install: "make dev-init"
+script: "pytest"

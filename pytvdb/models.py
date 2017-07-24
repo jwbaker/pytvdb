@@ -4,7 +4,7 @@ class BaseModel:
     def __init__(self, fields, **kwargs):
         self._attrs = {f:kwargs.get(f, None) for f in fields}
 
-    def __getattribute__(self, item):
+    def __getattr__(self, item):
         return self._attrs[item]
 
 

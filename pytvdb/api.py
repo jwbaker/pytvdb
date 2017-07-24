@@ -11,7 +11,7 @@ __all__ = ['Search']
 class TVDB:
 
     API_KEY_DEFAULT = 'FF7EF57268A992D6'
-    TOKEN_CACHE = TTLOrderedDict(default_ttl=timedelta(hours=24).total_seconds())
+    TOKEN_CACHE = TTLOrderedDict(default_ttl=int(timedelta(hours=24).total_seconds()))
     BASE_URL = 'https://api.thetvdb.com'
 
     def __init__(self, api_key=None, language='en', version=None):

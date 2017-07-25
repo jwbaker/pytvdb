@@ -88,3 +88,15 @@ class Series(models.SeriesData):
     def actors(self):
         res = self._tvdb._make_request('/series/' + str(self.id) + '/actors', {})
         return self._tvdb._build_list_of_models(models.SeriesActorsData, res['data'])
+
+    def episodes(self):
+        res = []
+        page = 1
+
+        while True:
+            resp = self._tvdb._make_request('/series/' + str(self.id) + '/episodes', {'page': page})
+            res += self._tvdb._build_list_of_models(models.BasicEpisode, resp['data'])
+            if not resp['links']['next']:
+                break
+            page = resp['links']['next']
+        return res

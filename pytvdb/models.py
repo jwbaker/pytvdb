@@ -186,3 +186,59 @@ class SeriesActorsData(BaseModel):
     @property
     def sort_order(self):
         return self._attrs.get('sortOrder')
+
+
+class BasicEpisode(BaseModel):
+    def __init__(self, **kwargs):
+        super(BasicEpisode, self).__init__({
+            'absoluteNumber': int,
+            'airedEpisodeNumber': int,
+            'airedSeason': int,
+            'dvdEpisodeNumber': int,
+            'dvdSeason': int,
+            'episodeName': str,
+            'firstAired': lambda s: date(*map(int, s.split('-'))),
+            'id': int,
+            'lastUpdated': lambda s: datetime.fromtimestamp(s),
+            'overview': str
+        }, **kwargs)
+
+    @property
+    def absolute_number(self):
+        return self._attrs.get('absoluteNumber')
+
+    @property
+    def aired_episode_number(self):
+        return self._attrs.get('airedEpisodeNumber')
+
+    @property
+    def aired_season(self):
+        return self._attrs.get('airedSeason')
+
+    @property
+    def dvd_episode_number(self):
+        return self._attrs.get('dvdEpisodeNumber')
+
+    @property
+    def dvd_season(self):
+        return self._attrs.get('dvdSeason')
+
+    @property
+    def episode_name(self):
+        return self._attrs.get('episodeName')
+
+    @property
+    def first_aired(self):
+        return self._attrs.get('firstAired')
+
+    @property
+    def id(self):
+        return self._attrs.get('id')
+
+    @property
+    def last_updated(self):
+        return self._attrs.get('lastUpdated')
+
+    @property
+    def overview(self):
+        return self._attrs.get('overview')

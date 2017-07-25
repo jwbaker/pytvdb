@@ -1,6 +1,6 @@
 import datetime
 
-from pytvdb.models import SeriesData, SeriesSearchData, SeriesActorsData
+from pytvdb.models import SeriesData, SeriesSearchData, SeriesActorsData, BasicEpisode
 
 
 class TestUnitModels:
@@ -105,3 +105,35 @@ class TestUnitModels:
         assert a.image_author == data['imageAuthor']
         assert a.image_added.strftime('%Y-%m-%d %H:%M:%S') == data['imageAdded']
         assert a.last_updated.strftime('%Y-%m-%d %H:%M:%S') == data['lastUpdated']
+
+    def test_basic_episode(self):
+        data = {
+            "absoluteNumber": None,
+            "airedEpisodeNumber": 1,
+            "airedSeason": 1,
+            "airedSeasonID": 9666,
+            "dvdEpisodeNumber": None,
+            "dvdSeason": None,
+            "episodeName": "An Unearthly Child (1)",
+            "firstAired": "1963-11-23",
+            "id": 183204,
+            "lastUpdated": 1462622449,
+            "overview": "London, 1963. Schoolteachers Ian Chesterton and Barbara Wright are perplexed by the behaviour"
+                        " of one of their pupils, Susan Foreman. Her knowledge of science and history exceeds theirs,"
+                        " yet she seems totally ignorant of many common aspects of everyday life. They follow her to"
+                        " her home address, a junkyard with a police telephone box standing in it, and encounter her"
+                        " grandfather, the enigmatic Doctor. When they force their way past him into the police box,"
+                        " Susan's secret is revealed: she and the Doctor are aliens, and the police box is a time"
+                        " machine, the TARDIS, capable of visiting any point in the universe at any moment in time…"
+        }
+        e = BasicEpisode(**data)
+        assert e.absolute_number == data['absoluteNumber']
+        assert e.aired_episode_number == data['airedEpisodeNumber']
+        assert e.aired_season == data['airedSeason']
+        assert e.dvd_episode_number == data['dvdEpisodeNumber']
+        assert e.dvd_season == data['dvdSeason']
+        assert e.episode_name == data['episodeName']
+        assert e.first_aired.strftime('%Y-%m-%d') == data['firstAired']
+        assert e.id == data['id']
+        assert int(e.last_updated.timestamp()) == data['lastUpdated']
+        assert e.overview == data['overview']

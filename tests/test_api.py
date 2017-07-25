@@ -59,3 +59,13 @@ class TestSystemSeriesActors:
     def test_get_series_actors(self):
         res = TVDB().series(76107).actors()
         assert len(res) == 42
+
+
+class TestSystemSeriesEpisodes:
+    def test_single_page(self):
+        res = TVDB().series(78874).episodes()
+        assert len(res) == 18
+
+    def test_many_pages(self):
+        res = TVDB().series(76107).episodes()
+        assert len(res) == 809

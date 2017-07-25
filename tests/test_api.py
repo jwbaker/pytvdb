@@ -47,3 +47,9 @@ class TestSystemSearch:
                                   " bereits über 900 Jahre alt. Dass man ihm das nicht ansieht, liegt vor allem" \
                                   " daran, dass ein Time Lord, wenn er stirbt, in der Lage ist, sich zu regenerieren," \
                                   " wobei er auch eine andere Gestalt annimmt."
+
+
+class TestSystemSeries:
+    def test_get_series_by_id(self):
+        res = TVDB().series(76107)
+        assert res.series_name == "Doctor Who"

@@ -53,6 +53,9 @@ class TVDB:
     def search(self):
         return Search(self)
 
+    def series(self, id):
+        return Series(self, id)
+
 
 class Search:
 
@@ -71,3 +74,10 @@ class Search:
 
         res = self._tvdb._make_request('/search/series', params)
         return [models.SeriesSearchData(**d) for d in res['data']]
+
+
+class Series(models.SeriesData):
+
+    def __init__(self, tvdb, id):
+        super(Series, self).__init__(**tvdb._make_request('/series/' + str(id), {})['data'])
+        self._tvdb = tvdb

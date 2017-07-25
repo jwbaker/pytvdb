@@ -62,10 +62,6 @@ class SeriesSearchData(BaseModel):
     def status(self):
         return self._attrs.get('status')
 
-    @staticmethod
-    def params():
-        return ['name', 'imdbId', 'zap2itId']
-
 
 class SeriesData(SeriesSearchData):
     def __init__(self, **kwargs):

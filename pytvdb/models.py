@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 
 __all__ = ['SeriesSearchData']
 
@@ -16,8 +16,9 @@ class BaseModel:
 
 
 class SeriesSearchData(BaseModel):
-    def __init__(self, **kwargs):
-        super(SeriesSearchData, self).__init__({
+    def __init__(self, fields=None, **kwargs):
+        fields = fields or {}
+        super(SeriesSearchData, self).__init__({**{
             'aliases': list,
             'banner': str,
             'firstAired': lambda s: date(*map(int, s.split('-'))),
@@ -26,7 +27,7 @@ class SeriesSearchData(BaseModel):
             'overview': str,
             'seriesName': str,
             'status': str
-        }, **kwargs)
+        }, **fields}, **kwargs)
 
     @property
     def aliases(self):
@@ -63,3 +64,74 @@ class SeriesSearchData(BaseModel):
     @staticmethod
     def params():
         return ['name', 'imdbId', 'zap2itId']
+
+
+class SeriesData(SeriesSearchData):
+    def __init__(self, **kwargs):
+        super(SeriesData, self).__init__(fields={
+            'added': lambda s: datetime.strptime(s, '%Y-%m-%d %H:%M:%S'),
+            'airsDayOfWeek': str,
+            'airsTime': str,
+            'genre': list,
+            'imdbId': str,
+            'lastUpdated': lambda s: datetime.fromtimestamp(s),
+            'networkId': str,
+            'rating': str,
+            'runtime': str,
+            'seriesId': int,
+            'siteRating': float,
+            'siteRatingCount': int,
+            'zap2itId': str
+        }, **kwargs)
+
+    @property
+    def added(self):
+        return self._attrs.get('added')
+
+    @property
+    def airs_day_of_week(self):
+        return self._attrs.get('airsDayOfWeek')
+
+    @property
+    def airs_time(self):
+        return self._attrs.get('airsTime')
+
+    @property
+    def genre(self):
+        return self._attrs.get('genre')
+
+    @property
+    def imdb_id(self):
+        return self._attrs.get('imdbId')
+
+    @property
+    def last_updated(self):
+        return self._attrs.get('lastUpdated')
+
+    @property
+    def network_id(self):
+        return self._attrs.get('networkId')
+
+    @property
+    def rating(self):
+        return self._attrs.get('rating')
+
+    @property
+    def runtime(self):
+        return self._attrs.get('runtime')
+
+    @property
+    def series_id(self):
+        return self._attrs.get('seriesId')
+
+    @property
+    def site_rating(self):
+        return self._attrs.get('siteRating')
+
+    @property
+    def site_rating_count(self):
+        return self._attrs.get('siteRatingCount')
+
+    @property
+    def zap2it_id(self):
+        return self._attrs.get('zap2itId')

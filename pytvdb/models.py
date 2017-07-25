@@ -1,3 +1,4 @@
+from collections.abc import Sequence
 from datetime import date, datetime
 
 __all__ = ['SeriesSearchData']
@@ -186,6 +187,17 @@ class SeriesActorsData(BaseModel):
     @property
     def sort_order(self):
         return self._attrs.get('sortOrder')
+
+
+class SeriesEpisodes(Sequence):
+    def __init__(self, items):
+        self._items = items
+
+    def __getitem__(self, index):
+        return self._items.__getitem__(index)
+
+    def __len__(self):
+        return self._items.__len__()
 
 
 class BasicEpisode(BaseModel):

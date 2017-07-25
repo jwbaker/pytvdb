@@ -99,4 +99,4 @@ class Series(models.SeriesData):
             if not resp['links']['next']:
                 break
             page = resp['links']['next']
-        return res
+        return models.SeriesEpisodes(res)

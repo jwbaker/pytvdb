@@ -2,7 +2,7 @@ import datetime
 
 import pytest
 
-from pytvdb.models import SeriesData, SeriesSearchData, SeriesActorsData, BasicEpisode
+from pytvdb.models import SeriesData, SeriesSearchData, SeriesActorsData, BasicEpisode, SeriesEpisodes
 
 
 class TestModels:
@@ -143,3 +143,18 @@ class TestModels:
         assert e.id == data['id']
         assert int(e.last_updated.timestamp()) == data['lastUpdated']
         assert e.overview == data['overview']
+
+    @pytest.mark.unit
+    def test_series_episodes(self):
+        data = [1,2,3,4,5]
+        e = SeriesEpisodes(data)
+        assert len(e) == 5
+        for i in range(0, 5):
+            assert e[i] == data[i]
+
+        assert 3 in e
+        for i, ep in zip(data, e):
+            assert i == ep
+
+        for i, ep in zip(reversed(data), reversed(e)):
+            assert i == ep

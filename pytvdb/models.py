@@ -11,7 +11,7 @@ class BaseModel:
 
     @staticmethod
     def _apply_func_or_none(func, arg):
-        if arg is []:
+        if arg == []:
             return []
         if arg in ['', None]:
             return None

@@ -2,7 +2,7 @@ import datetime
 
 import pytest
 
-from pytvdb.models import SeriesData, SeriesSearchData, SeriesActorsData, BasicEpisode, SeriesEpisodes
+from pytvdb.models import SeriesData, SeriesSearchData, SeriesActorsData, BasicEpisode, SeriesEpisodes, BaseModel
 
 
 class TestModels:
@@ -158,6 +158,22 @@ class TestModels:
 
         for i, ep in zip(reversed(data), reversed(e)):
             assert i == ep
+
+
+class TestBaseModel:
+    @pytest.mark.unit
+    @pytest.mark.parametrize("input,func, expected", [
+        ([], lambda l: l + [1], []),
+        ([1], lambda l: l + [1], [1, 1]),
+        ('', lambda l: l + '1', None),
+        ('1', lambda l: l + '1', '11'),
+        ('0', lambda l: l + '1', '01'),
+        (0, lambda l: l + 1, 1),
+        (1, lambda l: l + 1, 2)
+    ])
+    def test_apply_func_or_none(self, input, func, expected):
+        res = BaseModel._apply_func_or_none(func, input)
+        assert res == expected
 
 
 class TestSeriesEpisodeQuery:

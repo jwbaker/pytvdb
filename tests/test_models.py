@@ -1,9 +1,12 @@
 import datetime
 
+import pytest
+
 from pytvdb.models import SeriesData, SeriesSearchData, SeriesActorsData, BasicEpisode
 
 
-class TestUnitModels:
+class TestModels:
+    @pytest.mark.unit
     def test_search_series_data(self):
         data = {
             "aliases": [
@@ -32,6 +35,7 @@ class TestUnitModels:
         assert s.series_name == data['seriesName']
         assert s.status == data['status']
 
+    @pytest.mark.unit
     def test_series_data(self):
         data = {
             "id": 76107,
@@ -83,6 +87,7 @@ class TestUnitModels:
         assert s.site_rating_count == data['siteRatingCount']
         assert s.zap2it_id == data['zap2itId']
 
+    @pytest.mark.unit
     def test_series_actor_data(self):
         data = {
             "id": 43198,
@@ -106,6 +111,7 @@ class TestUnitModels:
         assert a.image_added.strftime('%Y-%m-%d %H:%M:%S') == data['imageAdded']
         assert a.last_updated.strftime('%Y-%m-%d %H:%M:%S') == data['lastUpdated']
 
+    @pytest.mark.unit
     def test_basic_episode(self):
         data = {
             "absoluteNumber": None,

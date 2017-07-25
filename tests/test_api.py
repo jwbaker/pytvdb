@@ -4,7 +4,8 @@ from requests import HTTPError
 from pytvdb import TVDB
 
 
-class TestUnitTVDB:
+class TestTVDB:
+    @pytest.mark.unit
     def test_build_list_of_models(self):
 
         class TestObject:
@@ -19,39 +20,48 @@ class TestUnitTVDB:
             assert val == obj.value
 
 
-class TestSystemSearch:
+class TestSearch:
+    @pytest.mark.system
     def test_search_by_name(self):
         res = TVDB().search().series(name='Doctor Who')
         assert len(res) == 12
 
+    @pytest.mark.system
     def test_search_by_imdb_id(self):
         res = TVDB().search().series(imdb_id='tt0436992')
         assert len(res) == 1
 
+    @pytest.mark.system
     def test_search_by_zap2it_id(self):
         res = TVDB().search().series(zap_2_it_id='EP00750178')
         assert len(res) == 1
 
+    @pytest.mark.system
     def test_search_by_name_and_imdb(self):
         with pytest.raises(HTTPError):
             assert not TVDB().search().series(name='Doctor Who', imdb_id='tt0436992')
 
+    @pytest.mark.system
     def test_search_by_name_and_zap2it(self):
         with pytest.raises(HTTPError):
             assert not TVDB().search().series(name='Doctor Who', zap_2_it_id='EP00750178')
 
+    @pytest.mark.system
     def test_search_by_zap2it_and_imdb(self):
         with pytest.raises(HTTPError):
             assert not TVDB().search().series(zap_2_it_id='EP00750178', imdb_id='tt0436992')
 
+    @pytest.mark.system
     def test_search_by_name_and_zap2it_and_imdb(self):
         with pytest.raises(HTTPError):
             assert not TVDB().search().series(name='Doctor Who', zap_2_it_id='EP00750178', imdb_id='tt0436992')
 
+    @pytest.mark.system
     def test_search_with_version(self):
         res = TVDB(version='2.1.1').search().series(name='Doctor Who')
         assert len(res) == 12
 
+    @pytest.mark.system
     def test_search_different_language(self):
         res = TVDB(language='de').search().series(imdb_id='tt0436992')
         assert len(res[0].aliases) == 0
@@ -64,7 +74,8 @@ class TestSystemSearch:
                                   " wobei er auch eine andere Gestalt annimmt."
 
 
-class TestSystemSeries:
+class TestSeries:
+    @pytest.mark.system
     def test_get_series_by_id(self):
         res = TVDB().series(76107)
         assert res.series_name == "Doctor Who"

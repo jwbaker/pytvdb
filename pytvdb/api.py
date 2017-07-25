@@ -5,8 +5,6 @@ from ttldict import TTLOrderedDict
 
 from . import models
 
-__all__ = ['Search']
-
 
 class TVDB:
 
@@ -20,7 +18,7 @@ class TVDB:
         if version:
             self._version = version
 
-    def make_request(self, route, params):
+    def _make_request(self, route, params):
         token = self._get_token()
         headers = self._build_headers(token)
         r = requests.get(self.__class__.BASE_URL + route, params=params, headers=headers)
@@ -52,11 +50,14 @@ class TVDB:
             self.__class__.TOKEN_CACHE['token'] = token
             return token
 
+    def search(self):
+        return Search(self)
 
-class Search(TVDB):
 
-    def __init__(self, **kwargs):
-        super(Search, self).__init__(**kwargs)
+class Search:
+
+    def __init__(self, tvdb):
+        self._tvdb = tvdb
 
     def series(self, name='', imdb_id='', zap_2_it_id=''):
         params = {}
@@ -68,5 +69,5 @@ class Search(TVDB):
         if zap_2_it_id:
             params['zap2itId'] = zap_2_it_id
 
-        res = self.make_request('/search/series', params)
+        res = self._tvdb._make_request('/search/series', params)
         return [models.SeriesSearchData(**d) for d in res['data']]

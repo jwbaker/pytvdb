@@ -1,10 +1,10 @@
 import datetime
 
-from pytvdb.models import SeriesData, SeriesSearchData
+from pytvdb.models import SeriesData, SeriesSearchData, SeriesActorsData
 
 
-class TestUnitSeearchSeriesDataModel:
-    def test_fields_set(self):
+class TestUnitModels:
+    def test_search_series_data(self):
         data = {
             "aliases": [
                   "Doctor Who (1963)",
@@ -32,9 +32,7 @@ class TestUnitSeearchSeriesDataModel:
         assert s.series_name == data['seriesName']
         assert s.status == data['status']
 
-
-class TestUnitSeriesDataModel:
-    def test_fields_set(self):
+    def test_series_data(self):
         data = {
             "id": 76107,
             "seriesName": "Doctor Who",
@@ -84,3 +82,26 @@ class TestUnitSeriesDataModel:
         assert s.site_rating == data['siteRating']
         assert s.site_rating_count == data['siteRatingCount']
         assert s.zap2it_id == data['zap2itId']
+
+    def test_series_actor_data(self):
+        data = {
+            "id": 43198,
+            "seriesId": 76107,
+            "name": "Sarah Sutton",
+            "role": "Nyssa",
+            "sortOrder": 3,
+            "image": "actors/43198.jpg",
+            "imageAuthor": 7570,
+            "imageAdded": "2009-01-12 17:45:32",
+            "lastUpdated": "2009-01-12 17:45:32"
+        }
+        a = SeriesActorsData(**data)
+        assert a.id == data['id']
+        assert a.series_id == data['seriesId']
+        assert a.name == data['name']
+        assert a.role == data['role']
+        assert a.sort_order == data['sortOrder']
+        assert a.image == data['image']
+        assert a.image_author == data['imageAuthor']
+        assert a.image_added.strftime('%Y-%m-%d %H:%M:%S') == data['imageAdded']
+        assert a.last_updated.strftime('%Y-%m-%d %H:%M:%S') == data['lastUpdated']

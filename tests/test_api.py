@@ -53,3 +53,9 @@ class TestSystemSeries:
     def test_get_series_by_id(self):
         res = TVDB().series(76107)
         assert res.series_name == "Doctor Who"
+
+
+class TestSystemSeriesActors:
+    def test_get_series_actors(self):
+        res = TVDB().series(76107).actors()
+        assert len(res) == 42

@@ -50,6 +50,9 @@ class TVDB:
             self.__class__.TOKEN_CACHE['token'] = token
             return token
 
+    def _build_list_of_models(self, func, iterable):
+        return [func(**d) for d in iterable]
+
     def search(self):
         return Search(self)
 
@@ -73,7 +76,7 @@ class Search:
             params['zap2itId'] = zap_2_it_id
 
         res = self._tvdb._make_request('/search/series', params)
-        return [models.SeriesSearchData(**d) for d in res['data']]
+        return self._tvdb._build_list_of_models(models.SeriesSearchData, res['data'])
 
 
 class Series(models.SeriesData):
@@ -81,3 +84,7 @@ class Series(models.SeriesData):
     def __init__(self, tvdb, id):
         super(Series, self).__init__(**tvdb._make_request('/series/' + str(id), {})['data'])
         self._tvdb = tvdb
+
+    def actors(self):
+        res = self._tvdb._make_request('/series/' + str(self.id) + '/actors', {})
+        return self._tvdb._build_list_of_models(models.SeriesActorsData, res['data'])

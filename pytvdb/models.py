@@ -135,3 +135,54 @@ class SeriesData(SeriesSearchData):
     @property
     def zap2it_id(self):
         return self._attrs.get('zap2itId')
+
+
+class SeriesActorsData(BaseModel):
+    def __init__(self, **kwargs):
+        super(SeriesActorsData, self).__init__({
+            'id': int,
+            'image': str,
+            'imageAdded': lambda s: datetime.strptime(s, '%Y-%m-%d %H:%M:%S'),
+            'imageAuthor': int,
+            'lastUpdated': lambda s: datetime.strptime(s, '%Y-%m-%d %H:%M:%S'),
+            'name': str,
+            'role': str,
+            'seriesId': int,
+            'sortOrder': int
+        }, **kwargs)
+
+    @property
+    def id(self):
+        return self._attrs.get('id')
+
+    @property
+    def image(self):
+        return self._attrs.get('image')
+
+    @property
+    def image_added(self):
+        return self._attrs.get('imageAdded')
+
+    @property
+    def image_author(self):
+        return self._attrs.get('imageAuthor')
+
+    @property
+    def last_updated(self):
+        return self._attrs.get('lastUpdated')
+
+    @property
+    def name(self):
+        return self._attrs.get('name')
+
+    @property
+    def role(self):
+        return self._attrs.get('role')
+
+    @property
+    def series_id(self):
+        return self._attrs.get('seriesId')
+
+    @property
+    def sort_order(self):
+        return self._attrs.get('sortOrder')

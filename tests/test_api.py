@@ -4,6 +4,21 @@ from requests import HTTPError
 from pytvdb import TVDB
 
 
+class TestUnitTVDB:
+    def test_build_list_of_models(self):
+
+        class TestObject:
+            def __init__(self, **kwargs):
+                self.value = kwargs.get('value')
+
+        data = [1, 2, 3, 4, 5]
+        f = TestObject
+        res = TVDB()._build_list_of_models(f, [{'value': x} for x in data])
+
+        for val, obj in zip(data, res):
+            assert val == obj.value
+
+
 class TestSystemSearch:
     def test_search_by_name(self):
         res = TVDB().search().series(name='Doctor Who')

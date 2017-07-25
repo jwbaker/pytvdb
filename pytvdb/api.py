@@ -109,4 +109,4 @@ class Series(models.SeriesData):
             if not resp['links']['next']:
                 break
             page = resp['links']['next']
-        return self.__class__.EpisodesResult(res)
+        return self.__class__.EpisodesResult(res, self._tvdb)

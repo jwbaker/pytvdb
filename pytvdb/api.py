@@ -88,7 +88,7 @@ class Series(models.SeriesData):
             self._tvdb = tvdb
 
         def summary(self):
-            res = self._tvdb._make_request('/series/' + str(id) + '/episodes/summary', {})
+            res = self._tvdb._make_request('/series/' + str(self.id) + '/episodes/summary', {})
             return models.SeriesEpisodesSummary(**res['data'])
 
     def __init__(self, tvdb, id):

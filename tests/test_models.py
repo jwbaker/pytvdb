@@ -158,3 +158,311 @@ class TestModels:
 
         for i, ep in zip(reversed(data), reversed(e)):
             assert i == ep
+
+
+class TestSeriesEpisodeQuery:
+
+    @pytest.fixture(scope='session')
+    def data(self):
+        data = [
+            {
+                "absoluteNumber": 2,
+                "airedEpisodeNumber": 1,
+                "airedSeason": 1,
+                "airedSeasonID": 15791,
+                "dvdEpisodeNumber": 2,
+                "dvdSeason": 1,
+                "episodeName": "The Train Job",
+                "firstAired": "2002-09-20",
+                "id": 297989,
+                "language": {
+                    "episodeName": "en",
+                    "overview": "en"
+                },
+                "lastUpdated": 1458047554,
+            },{
+                "absoluteNumber": 15,
+                "airedEpisodeNumber": 1,
+                "airedSeason": 0,
+                "airedSeasonID": 26328,
+                "dvdEpisodeNumber": None,
+                "dvdSeason": None,
+                "episodeName": "Serenity",
+                "firstAired": "2005-09-30",
+                "id": 415679,
+                "language": {
+                    "episodeName": "en",
+                    "overview": "en"
+                },
+                "lastUpdated": 1358950216,
+            },{
+                "absoluteNumber": 3,
+                "airedEpisodeNumber": 2,
+                "airedSeason": 1,
+                "airedSeasonID": 15791,
+                "dvdEpisodeNumber": 3,
+                "dvdSeason": 1,
+                "episodeName": "Bushwhacked",
+                "firstAired": "2002-09-27",
+                "id": 297990,
+                "language": {
+                    "episodeName": "en",
+                    "overview": "en"
+                },
+                "lastUpdated": 1458047574,
+            },{
+                "absoluteNumber": None,
+                "airedEpisodeNumber": 2,
+                "airedSeason": 0,
+                "airedSeasonID": 26328,
+                "dvdEpisodeNumber": None,
+                "dvdSeason": None,
+                "episodeName": "Here’s How It Was: The Making of “Firefly”",
+                "firstAired": "2003-12-09",
+                "id": 1000141,
+                "language": {
+                    "episodeName": "en",
+                    "overview": "en"
+                },
+                "lastUpdated": 1465738872,
+            },{
+                "absoluteNumber": 6,
+                "airedEpisodeNumber": 3,
+                "airedSeason": 1,
+                "airedSeasonID": 15791,
+                "dvdEpisodeNumber": 6,
+                "dvdSeason": 1,
+                "episodeName": "Our Mrs. Reynolds",
+                "firstAired": "2002-10-04",
+                "id": 297991,
+                "language": {
+                    "episodeName": "en",
+                    "overview": "en"
+                },
+                "lastUpdated": 1458047585,
+            },{
+                "absoluteNumber": None,
+                "airedEpisodeNumber": 3,
+                "airedSeason": 0,
+                "airedSeasonID": 26328,
+                "dvdEpisodeNumber": None,
+                "dvdSeason": None,
+                "episodeName": "Done the Impossible",
+                "firstAired": "2006-07-28",
+                "id": 967981,
+                "language": {
+                    "episodeName": "en",
+                    "overview": "en"
+                },
+                "lastUpdated": 1270848353,
+            },{
+                "absoluteNumber": 7,
+                "airedEpisodeNumber": 4,
+                "airedSeason": 1,
+                "airedSeasonID": 15791,
+                "dvdEpisodeNumber": 7,
+                "dvdSeason": 1,
+                "episodeName": "Jaynestown",
+                "firstAired": "2002-10-18",
+                "id": 297992,
+                "language": {
+                    "episodeName": "en",
+                    "overview": "en"
+                },
+                "lastUpdated": 1458047594,
+            },{
+                "absoluteNumber": None,
+                "airedEpisodeNumber": 4,
+                "airedSeason": 0,
+                "airedSeasonID": 26328,
+                "dvdEpisodeNumber": None,
+                "dvdSeason": None,
+                "episodeName": "Browncoats Unite",
+                "firstAired": "2012-11-11",
+                "id": 4360465,
+                "language": {
+                    "episodeName": "en",
+                    "overview": "en"
+                },
+                "lastUpdated": 1353371788,
+            },{
+                "absoluteNumber": 8,
+                "airedEpisodeNumber": 5,
+                "airedSeason": 1,
+                "airedSeasonID": 15791,
+                "dvdEpisodeNumber": 8,
+                "dvdSeason": 1,
+                "episodeName": "Out of Gas",
+                "firstAired": "2002-10-25",
+                "id": 297993,
+                "language": {
+                    "episodeName": "en",
+                    "overview": "en"
+                },
+                "lastUpdated": 1458047604,
+            },{
+                "absoluteNumber": 4,
+                "airedEpisodeNumber": 6,
+                "airedSeason": 1,
+                "airedSeasonID": 15791,
+                "dvdEpisodeNumber": 4,
+                "dvdSeason": 1,
+                "episodeName": "Shindig",
+                "firstAired": "2002-11-01",
+                "id": 297994,
+                "language": {
+                    "episodeName": "en",
+                    "overview": "en"
+                },
+                "lastUpdated": 1458047612,
+            },{
+                "absoluteNumber": 5,
+                "airedEpisodeNumber": 7,
+                "airedSeason": 1,
+                "airedSeasonID": 15791,
+                "dvdEpisodeNumber": 5,
+                "dvdSeason": 1,
+                "episodeName": "Safe",
+                "firstAired": "2002-11-08",
+                "id": 297995,
+                "language": {
+                    "episodeName": "en",
+                    "overview": "en"
+                },
+                "lastUpdated": 1458047620,
+            },{
+                "absoluteNumber": 9,
+                "airedEpisodeNumber": 8,
+                "airedSeason": 1,
+                "airedSeasonID": 15791,
+                "dvdEpisodeNumber": 9,
+                "dvdSeason": 1,
+                "episodeName": "Ariel",
+                "firstAired": "2002-11-15",
+                "id": 297996,
+                "language": {
+                    "episodeName": "en",
+                    "overview": "en"
+                },
+                "lastUpdated": 1458047631,
+            },{
+                "absoluteNumber": 10,
+                "airedEpisodeNumber": 9,
+                "airedSeason": 1,
+                "airedSeasonID": 15791,
+                "dvdEpisodeNumber": 10,
+                "dvdSeason": 1,
+                "episodeName": "War Stories",
+                "firstAired": "2002-12-06",
+                "id": 297997,
+                "language": {
+                    "episodeName": "en",
+                    "overview": "en"
+                },
+                "lastUpdated": 1458047638,
+            },{
+                "absoluteNumber": 14,
+                "airedEpisodeNumber": 10,
+                "airedSeason": 1,
+                "airedSeasonID": 15791,
+                "dvdEpisodeNumber": 14,
+                "dvdSeason": 1,
+                "episodeName": "Objects in Space",
+                "firstAired": "2002-12-13",
+                "id": 297998,
+                "language": {
+                    "episodeName": "en",
+                    "overview": "en"
+                },
+                "lastUpdated": 1458047646,
+            },{
+                "absoluteNumber": 1,
+                "airedEpisodeNumber": 11,
+                "airedSeason": 1,
+                "airedSeasonID": 15791,
+                "dvdEpisodeNumber": 1,
+                "dvdSeason": 1,
+                "episodeName": "Serenity",
+                "firstAired": "2002-12-20",
+                "id": 297999,
+                "language": {
+                    "episodeName": "en",
+                    "overview": "en"
+                },
+                "lastUpdated": 1458047658,
+            },{
+                "absoluteNumber": 13,
+                "airedEpisodeNumber": 12,
+                "airedSeason": 1,
+                "airedSeasonID": 15791,
+                "dvdEpisodeNumber": 13,
+                "dvdSeason": 1,
+                "episodeName": "Heart of Gold",
+                "firstAired": "2003-06-23",
+                "id": 298001,
+                "language": {
+                    "episodeName": "en",
+                    "overview": "en"
+                },
+                "lastUpdated": 1458047667,
+            },{
+                "absoluteNumber": 11,
+                "airedEpisodeNumber": 13,
+                "airedSeason": 1,
+                "airedSeasonID": 15791,
+                "dvdEpisodeNumber": 11,
+                "dvdSeason": 1,
+                "episodeName": "Trash",
+                "firstAired": "2003-07-21",
+                "id": 298002,
+                "language": {
+                    "episodeName": "en",
+                    "overview": "en"
+                },
+                "lastUpdated": 1458047676,
+            },{
+                "absoluteNumber": 12,
+                "airedEpisodeNumber": 14,
+                "airedSeason": 1,
+                "airedSeasonID": 15791,
+                "dvdEpisodeNumber": 12,
+                "dvdSeason": 1,
+                "episodeName": "The Message",
+                "firstAired": "2003-07-28",
+                "id": 298003,
+                "language": {
+                    "episodeName": "en",
+                    "overview": "en"
+                },
+                "lastUpdated": 1458047683,
+            }
+        ]
+        return SeriesEpisodes([BasicEpisode(**d) for d in data])
+
+    @pytest.mark.unit
+    def test_query_by_absolute_number(self, data):
+        res = data.query(absolute_number=2)
+        assert len(res) == 1
+        assert res[0].episode_name == 'The Train Job'
+
+    @pytest.mark.unit
+    def test_query_by_aired_season(self, data):
+        res = data.query(aired_season=0)
+        assert len(res) == 4
+
+    @pytest.mark.unit
+    def test_query_by_aired_episode(self, data):
+        res = data.query(aired_episode=5)
+        assert len(res) == 1
+        assert res[0].episode_name == 'Out of Gas'
+
+    @pytest.mark.unit
+    def test_query_by_dvd_season(self, data):
+        res = data.query(dvd_season=1)
+        assert len(res) == 14
+
+    @pytest.mark.unit
+    def test_query_by_dvd_episode(self, data):
+        res = data.query(dvd_episode=1)
+        assert len(res) == 1
+        assert res[0].episode_name == 'Serenity'

@@ -11,9 +11,9 @@ class BaseModel:
 
     @staticmethod
     def _apply_func_or_none(func, arg):
-        if isinstance(arg, list):
-            return func(arg) if arg else []
-        return func(arg) if arg else None
+        if arg is None:
+            return [] if isinstance(arg, list) else None
+        return func(arg)
 
 
 class SeriesSearchData(BaseModel):
@@ -198,6 +198,21 @@ class SeriesEpisodes(Sequence):
 
     def __len__(self):
         return self._items.__len__()
+
+    def query(self, absolute_number=None, aired_season=None, aired_episode=None, dvd_season=None, dvd_episode=None):
+        def episodes_filter_func(episode):
+            if absolute_number is not None and episode.absolute_number != absolute_number:
+                return False
+            if aired_season is not None and episode.aired_season != aired_season:
+                return False
+            if aired_episode is not None and episode.aired_episode_number != aired_episode:
+                return False
+            if dvd_season is not None and episode.dvd_season != dvd_season:
+                return False
+            if dvd_episode is not None and episode.dvd_episode_number != dvd_episode:
+                return False
+            return True
+        return SeriesEpisodes(list(filter(episodes_filter_func, self._items)))
 
 
 class BasicEpisode(BaseModel):

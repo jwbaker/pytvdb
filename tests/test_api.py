@@ -81,17 +81,28 @@ class TestSeries:
         assert res.series_name == "Doctor Who"
 
 
-class TestSystemSeriesActors:
+class TestSeriesActors:
+    @pytest.mark.system
     def test_get_series_actors(self):
         res = TVDB().series(76107).actors()
         assert len(res) == 42
 
 
-class TestSystemSeriesEpisodes:
+class TestSeriesEpisodes:
+    @pytest.mark.system
     def test_single_page(self):
         res = TVDB().series(78874).episodes()
         assert len(res) == 18
 
+    @pytest.mark.system
     def test_many_pages(self):
         res = TVDB().series(76107).episodes()
         assert len(res) == 809
+
+    @pytest.mark.system
+    def test_summary(self):
+        res = TVDB().series(76107).episodes().summary()
+        assert len(res.aired_episodes) == 27
+        assert res.aired_episodes == 809
+        assert res.dvd_seasons == []
+        assert res.dvd_episodes == 0

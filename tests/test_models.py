@@ -2,7 +2,8 @@ import datetime
 
 import pytest
 
-from pytvdb.models import SeriesData, SeriesSearchData, SeriesActorsData, BasicEpisode, SeriesEpisodes, BaseModel
+from pytvdb.models import SeriesData, SeriesSearchData, SeriesActorsData, BasicEpisode, SeriesEpisodes, BaseModel, \
+    SeriesEpisodesSummary
 
 
 class TestModels:
@@ -158,6 +159,48 @@ class TestModels:
 
         for i, ep in zip(reversed(data), reversed(e)):
             assert i == ep
+
+    @pytest.mark.unit
+    def test_series_episodes_summary(self):
+        data = {
+            "airedSeasons": [
+                "21",
+                "20",
+                "19",
+                "0",
+                "18",
+                "26",
+                "25",
+                "24",
+                "22",
+                "23",
+                "14",
+                "13",
+                "12",
+                "11",
+                "17",
+                "16",
+                "15",
+                "9",
+                "3",
+                "5",
+                "6",
+                "10",
+                "8",
+                "2",
+                "1",
+                "7",
+                "4"
+            ],
+            "airedEpisodes": "809",
+            "dvdSeasons": [],
+            "dvdEpisodes": "0"
+        }
+        s = SeriesEpisodesSummary(**data)
+        assert len(s.aired_seasons) == 27
+        assert s.aired_episodes == 809
+        assert s.dvd_seasons == []
+        assert s.dvd_episodes == 0
 
 
 class TestBaseModel:

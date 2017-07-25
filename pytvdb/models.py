@@ -267,3 +267,29 @@ class BasicEpisode(BaseModel):
     @property
     def overview(self):
         return self._attrs.get('overview')
+
+
+class SeriesEpisodesSummary(BaseModel):
+    def __init__(self, **kwargs):
+        super(SeriesEpisodesSummary, self).__init__({
+            'airedEpisodes': int,
+            'airedSeasons': list,
+            'dvdEpisodes': int,
+            'dvdSeasons': list
+        }, **kwargs)
+
+    @property
+    def aired_episodes(self):
+        return self._attrs.get('airedEpisodes')
+
+    @property
+    def aired_seasons(self):
+        return self._attrs.get('airedSeasons')
+
+    @property
+    def dvd_episodes(self):
+        return self._attrs.get('dvdEpisodes')
+
+    @property
+    def dvd_seasons(self):
+        return self._attrs.get('dvdSeasons')

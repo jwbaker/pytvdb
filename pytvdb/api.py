@@ -83,12 +83,13 @@ class Series(models.SeriesData):
 
     class EpisodesResult(models.SeriesEpisodes):
 
-        def __init__(self, episodes, tvdb):
+        def __init__(self, id, episodes, tvdb):
             super(Series.EpisodesResult, self).__init__(episodes)
             self._tvdb = tvdb
+            self._id = id
 
         def summary(self):
-            res = self._tvdb._make_request('/series/' + str(self.id) + '/episodes/summary', {})
+            res = self._tvdb._make_request('/series/' + str(self._id) + '/episodes/summary', {})
             return models.SeriesEpisodesSummary(**res['data'])
 
     def __init__(self, tvdb, id):
@@ -109,4 +110,4 @@ class Series(models.SeriesData):
             if not resp['links']['next']:
                 break
             page = resp['links']['next']
-        return self.__class__.EpisodesResult(res, self._tvdb)
+        return self.__class__.EpisodesResult(self.id, res, self._tvdb)

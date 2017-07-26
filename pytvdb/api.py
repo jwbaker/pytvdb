@@ -59,6 +59,9 @@ class TVDB:
     def series(self, id):
         return Series(self, id)
 
+    def episodes(self, id):
+        return Episodes(self, id)
+
 
 class Search:
 
@@ -111,3 +114,10 @@ class Series(models.SeriesData):
                 break
             page = resp['links']['next']
         return self.__class__.EpisodesResult(self.id, res, self._tvdb)
+
+
+class Episodes(models.Episode):
+    def __init__(self, tvdb, id):
+        super(Episodes, self).__init__(**tvdb._make_request('/episodes/' + str(id), {})['data'])
+        self._tvdb = tvdb
+        self._id = id

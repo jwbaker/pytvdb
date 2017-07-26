@@ -106,3 +106,11 @@ class TestSeriesEpisodes:
         assert res.aired_episodes == 809
         assert res.dvd_seasons == []
         assert res.dvd_episodes == 0
+
+
+class TestEpisodes:
+    @pytest.mark.system
+    def test_get_episode(self):
+        res = TVDB().episodes(183284)
+        assert res.episode_name == 'Terror of the Zygons (2)'
+        assert res.directors == ['Douglas Camfield']

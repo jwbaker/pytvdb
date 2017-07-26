@@ -3,7 +3,7 @@ import datetime
 import pytest
 
 from pytvdb.models import SeriesData, SeriesSearchData, SeriesActorsData, BasicEpisode, SeriesEpisodes, BaseModel, \
-    SeriesEpisodesSummary
+    SeriesEpisodesSummary, Episode
 
 
 class TestModels:
@@ -202,13 +202,86 @@ class TestModels:
         assert s.dvd_seasons == []
         assert s.dvd_episodes == 0
 
+    @pytest.mark.unit
+    def test_episode(self):
+        data = {
+            "id": 183284,
+            "airedSeason": 13,
+            "airedSeasonID": 9670,
+            "airedEpisodeNumber": 2,
+            "episodeName": "Terror of the Zygons (2)",
+            "firstAired": "1975-09-06",
+            "guestStars": [
+                "John Woodnutt",
+                " Lillias Walker",
+                " Tony Sibbald",
+                " Ronald Gough",
+                " Bernard G. High"
+            ],
+            "director": "Douglas Camfield",
+            "directors": [
+                "Douglas Camfield"
+            ],
+            "writers": [
+                "Robert Banks Stewart"
+            ],
+            "overview": "Scotland, the near future. Something is smashing oil rigs off the Scottish coast, and UNIT"
+                        " have been called in to investigate. The aliens responsible, the Zygons, try to kill the"
+                        " Doctor and Sarah Jane, then attempt to recover their signal device using their ability"
+                        " to mimic human beings.\r\n",
+            "language": {
+                "episodeName": "en",
+                "overview": "en"
+            },
+            "productionCode": "4H",
+            "showUrl": "http://www.tv.com/episode/441716/summary.html",
+            "lastUpdated": 1237793481,
+            "dvdDiscid": "",
+            "dvdSeason": None,
+            "dvdEpisodeNumber": None,
+            "dvdChapter": None,
+            "absoluteNumber": None,
+            "filename": "episodes/76107/183284.jpg",
+            "seriesId": 76107,
+            "lastUpdatedBy": 593,
+            "airsAfterSeason": None,
+            "airsBeforeSeason": None,
+            "airsBeforeEpisode": None,
+            "thumbAuthor": 6222,
+            "thumbAdded": "",
+            "thumbWidth": "400",
+            "thumbHeight": "300",
+            "imdbId": "",
+            "siteRating": 7,
+            "siteRatingCount": 2
+          }
+        e = Episode(**data)
+        assert isinstance(e, BasicEpisode)
+        assert e.airs_after_season == data['airsAfterSeason']
+        assert e.airs_before_episode == data['airsBeforeEpisode']
+        assert e.airs_before_season == data['airsBeforeSeason']
+        assert e.director == data['director']
+        assert e.directors == data['directors']
+        assert e.dvd_chapter == data['dvdChapter']
+        assert e.dvd_disc_id == data['dvdDiscid']
+        assert e.guest_stars == data['guestStars']
+        assert e.last_updated_by == data['lastUpdatedBy']
+        assert e.production_code == data['productionCode']
+        assert e.series_id == data['seriesId']
+        assert e.show_url == data['showUrl']
+        assert e.thumb_added == data['thumbAdded']
+        assert e.thumb_author == data['thumbAuthor']
+        assert e.thumb_height == data['thumbHeight']
+        assert e.thumb_width == data['thumbWidth']
+        assert e.writers == data['writers']
+
 
 class TestBaseModel:
     @pytest.mark.unit
     @pytest.mark.parametrize("input,func, expected", [
         ([], lambda l: l + [1], []),
         ([1], lambda l: l + [1], [1, 1]),
-        ('', lambda l: l + '1', None),
+        ('', lambda l: l + '1', ''),
         ('1', lambda l: l + '1', '11'),
         ('0', lambda l: l + '1', '01'),
         (0, lambda l: l + 1, 1),

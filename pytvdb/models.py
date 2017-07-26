@@ -11,9 +11,9 @@ class BaseModel:
 
     @staticmethod
     def _apply_func_or_none(func, arg):
-        if arg == []:
-            return []
-        if arg in ['', None]:
+        if arg == [] or arg == '':
+            return arg
+        if arg is None:
             return None
         return func(arg)
 
@@ -214,8 +214,9 @@ class SeriesEpisodes(Sequence):
 
 
 class BasicEpisode(BaseModel):
-    def __init__(self, **kwargs):
-        super(BasicEpisode, self).__init__({
+    def __init__(self, fields=None, **kwargs):
+        fields = fields or {}
+        super(BasicEpisode, self).__init__({**{
             'absoluteNumber': int,
             'airedEpisodeNumber': int,
             'airedSeason': int,
@@ -226,7 +227,7 @@ class BasicEpisode(BaseModel):
             'id': int,
             'lastUpdated': lambda s: datetime.fromtimestamp(s),
             'overview': str
-        }, **kwargs)
+        }, **fields}, **kwargs)
 
     @property
     def absolute_number(self):
@@ -267,6 +268,97 @@ class BasicEpisode(BaseModel):
     @property
     def overview(self):
         return self._attrs.get('overview')
+
+
+class Episode(BasicEpisode):
+    def __init__(self, **kwargs):
+        super(Episode, self).__init__({
+            'airsAfterSeason': int,
+            'airsBeforeEpisode': int,
+            'airsBeforeSeason': int,
+            'director': str,
+            'directors': list,
+            'dvdChapter': float,
+            'dvdDiscid': str,
+            'guestStars': list,
+            'lastUpdatedBy': int,
+            'productionCode': str,
+            'seriesId': int,
+            'showUrl': str,
+            'thumbAdded': str,
+            'thumbAuthor': int,
+            'thumbHeight': str,
+            'thumbWidth': str,
+            'writers': list
+        }, **kwargs)
+
+    @property
+    def airs_after_season(self):
+        return self._attrs.get('airsAfterSeason')
+
+    @property
+    def airs_before_episode(self):
+        return self._attrs.get('airsBeforeEpisodeon')
+
+    @property
+    def airs_before_season(self):
+        return self._attrs.get('airsBeforeSeason')
+
+    @property
+    def director(self):
+        return self._attrs.get('director')
+
+    @property
+    def directors(self):
+        return self._attrs.get('directors')
+
+    @property
+    def dvd_chapter(self):
+        return self._attrs.get('dvdChapter')
+
+    @property
+    def dvd_disc_id(self):
+        return self._attrs.get('dvdDiscid')
+
+    @property
+    def guest_stars(self):
+        return self._attrs.get('guestStars')
+
+    @property
+    def last_updated_by(self):
+        return self._attrs.get('lastUpdatedBy')
+
+    @property
+    def production_code(self):
+        return self._attrs.get('productionCode')
+
+    @property
+    def series_id(self):
+        return self._attrs.get('seriesId')
+
+    @property
+    def show_url(self):
+        return self._attrs.get('showUrl')
+
+    @property
+    def thumb_added(self):
+        return self._attrs.get('thumbAdded')
+
+    @property
+    def thumb_author(self):
+        return self._attrs.get('thumbAuthor')
+
+    @property
+    def thumb_height(self):
+        return self._attrs.get('thumbHeight')
+
+    @property
+    def thumb_width(self):
+        return self._attrs.get('thumbWidth')
+
+    @property
+    def writers(self):
+        return self._attrs.get('writers')
 
 
 class SeriesEpisodesSummary(BaseModel):

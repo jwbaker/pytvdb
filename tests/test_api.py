@@ -102,7 +102,7 @@ class TestSeriesEpisodes:
     @pytest.mark.system
     def test_summary(self):
         res = TVDB().series(76107).episodes().summary()
-        assert len(res.aired_episodes) == 27
+        assert len(res.aired_seasons) == 27
         assert res.aired_episodes == 809
         assert res.dvd_seasons == []
         assert res.dvd_episodes == 0

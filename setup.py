@@ -13,10 +13,19 @@ setup(
     name='pytvdb',
     version='0.0.1',
     packages=['pytvdb'],
-    url='',
-    license='',
-    author='jabaker',
-    author_email='',
-    description='',
-    install_requires=requirements
+    url='https://github.com/jwbaker/pytvdb',
+    license='Unlicense',
+    author='Jason Baker',
+    author_email='bakerjwr@gmail.com',
+    description='A library for connecting to the TVDB.com API',
+    install_requires=requirements,
+    classifiers=[
+        'Development Status :: 2 - Pre-Alpha',
+        'Intended Audience :: Developers',
+        'License :: Public Domain',
+        'Natural Language :: English',
+        'Programming Language :: Python :: 3.6',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+        'Topic :: Utilities'
+    ]
 )

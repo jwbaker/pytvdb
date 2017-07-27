@@ -11,7 +11,7 @@ requirements = [
 
 setup(
     name='pytvdb',
-    version='0.0.1',
+    version='0.1.0',
     packages=['pytvdb'],
     url='https://github.com/jwbaker/pytvdb',
     license='Unlicense',
@@ -20,7 +20,7 @@ setup(
     description='A library for connecting to the TVDB.com API',
     install_requires=requirements,
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'License :: Public Domain',
         'Natural Language :: English',

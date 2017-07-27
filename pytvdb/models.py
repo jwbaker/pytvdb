@@ -198,6 +198,16 @@ class SeriesEpisodes(Sequence):
         return self._items.__len__()
 
     def query(self, absolute_number=None, aired_season=None, aired_episode=None, dvd_season=None, dvd_episode=None):
+        """
+        Filters the episodes for the series according to the provided fields.
+
+        :param absolute_number:
+        :param aired_season:
+        :param aired_episode:
+        :param dvd_season:
+        :param dvd_episode:
+        :return: A list of episode objects for the current series that match the provided criteria
+        """
         def episodes_filter_func(episode):
             if absolute_number is not None and episode.absolute_number != absolute_number:
                 return False

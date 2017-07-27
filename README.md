@@ -1,7 +1,9 @@
-#PyTVDB
+# PyTVDB
 
 [![Build Status](https://travis-ci.org/jwbaker/pytvdb.svg?branch=master)](https://travis-ci.org/jwbaker/pytvdb)
 [![Coverage Status](https://coveralls.io/repos/github/jwbaker/pytvdb/badge.svg?branch=master)](https://coveralls.io/github/jwbaker/pytvdb?branch=master)
+[![PyPI](https://img.shields.io/pypi/v/pytvdb.svg)](https://pypi.python.org/pypi/pytvdb)
+[![PyPI](https://img.shields.io/pypi/pyversions/pytvdb.svg)](https://pypi.python.org/pypi/pytvdb)
 
 ## Description
 

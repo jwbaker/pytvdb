@@ -16,7 +16,7 @@ PyTVDB is a Python library for querying the TVDB.com API. It was originally writ
 So this is my attempt at writing an API library I would actually want to use.
 
 ## Supported Python Versions:
-PyTVDB was developed using Python 3.6.2, and this is the only version I can guarantee will work. Earlier versions have not been tested, though I plan to ensure support at a later date.
+PyTVDB supports Python 3.5+.
 
 Python 2.x is not currently supported; support for version 2.7 is planned.
 

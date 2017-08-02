@@ -11,7 +11,7 @@ requirements = [
 
 setup(
     name='pytvdb',
-    version='0.1.0',
+    version='0.1.1',
     packages=['pytvdb'],
     url='https://github.com/jwbaker/pytvdb',
     license='Unlicense',
@@ -24,6 +24,7 @@ setup(
         'Intended Audience :: Developers',
         'License :: Public Domain',
         'Natural Language :: English',
+        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Topic :: Utilities'

@@ -1,6 +1,8 @@
 from collections.abc import Sequence
 from datetime import date, datetime
 
+from pytvdb import util
+
 __all__ = ['SeriesSearchData']
 
 
@@ -21,7 +23,7 @@ class BaseModel:
 class SeriesSearchData(BaseModel):
     def __init__(self, fields=None, **kwargs):
         fields = fields or {}
-        super(SeriesSearchData, self).__init__({**{
+        super(SeriesSearchData, self).__init__(util.merge_dicts({
             'aliases': list,
             'banner': str,
             'firstAired': lambda s: date(*map(int, s.split('-'))),
@@ -30,7 +32,7 @@ class SeriesSearchData(BaseModel):
             'overview': str,
             'seriesName': str,
             'status': str
-        }, **fields}, **kwargs)
+        }, fields), **kwargs)
 
     @property
     def aliases(self):
@@ -226,7 +228,7 @@ class SeriesEpisodes(Sequence):
 class BasicEpisode(BaseModel):
     def __init__(self, fields=None, **kwargs):
         fields = fields or {}
-        super(BasicEpisode, self).__init__({**{
+        super(BasicEpisode, self).__init__(util.merge_dicts({
             'absoluteNumber': int,
             'airedEpisodeNumber': int,
             'airedSeason': int,
@@ -237,7 +239,7 @@ class BasicEpisode(BaseModel):
             'id': int,
             'lastUpdated': lambda s: datetime.fromtimestamp(s),
             'overview': str
-        }, **fields}, **kwargs)
+        }, fields), **kwargs)
 
     @property
     def absolute_number(self):

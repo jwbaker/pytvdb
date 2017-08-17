@@ -73,6 +73,11 @@ class TestSearch:
                                   " daran, dass ein Time Lord, wenn er stirbt, in der Lage ist, sich zu regenerieren," \
                                   " wobei er auch eine andere Gestalt annimmt."
 
+    @pytest.mark.system
+    def test_search_term_not_found(self):
+        res = TVDB().search().series(name='doct')
+        assert len(res) == 0
+
 
 class TestSeries:
     @pytest.mark.system

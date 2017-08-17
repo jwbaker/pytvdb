@@ -117,8 +117,12 @@ class Search:
         if zap2it_id:
             params['zap2itId'] = zap2it_id
 
-        res = self._tvdb._make_request('/search/series', params)
-        return self._tvdb._build_list_of_models(models.SeriesSearchData, res['data'])
+        try:
+            res = self._tvdb._make_request('/search/series', params)
+            return self._tvdb._build_list_of_models(models.SeriesSearchData, res['data'])
+        except requests.HTTPError as ex:
+            if ex.response.status_code == 404:
+                return []
 
 
 class Series(models.SeriesData):

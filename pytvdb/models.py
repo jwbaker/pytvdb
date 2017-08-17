@@ -1,7 +1,8 @@
 from collections.abc import Sequence
 from datetime import date, datetime
 
-__all__ = ['SeriesSearchData']
+__all__ = ['SeriesSearchData', 'SeriesData', 'SeriesActorsData', 'SeriesEpisodes', 'BasicEpisode', 'Episode',
+           'SeriesEpisodesSummary']
 
 
 class BaseModel:

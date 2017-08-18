@@ -117,7 +117,7 @@ class Search:
         if zap2it_id:
             params['zap2itId'] = zap2it_id
 
-        if not (bool(name) ^ bool(imdb_id) ^ bool(zap2it_id)):
+        if not (bool(name) ^ bool(imdb_id) ^ bool(zap2it_id)) or (name and imdb_id and zap2it_id):
             raise ValueError('Cannot search by multiple keys')
 
         try:

@@ -38,22 +38,22 @@ class TestSearch:
 
     @pytest.mark.system
     def test_search_by_name_and_imdb(self):
-        with pytest.raises(HTTPError):
+        with pytest.raises(ValueError):
             assert not TVDB().search().series(name='Doctor Who', imdb_id='tt0436992')
 
     @pytest.mark.system
     def test_search_by_name_and_zap2it(self):
-        with pytest.raises(HTTPError):
+        with pytest.raises(ValueError):
             assert not TVDB().search().series(name='Doctor Who', zap2it_id='EP00750178')
 
     @pytest.mark.system
     def test_search_by_zap2it_and_imdb(self):
-        with pytest.raises(HTTPError):
+        with pytest.raises(ValueError):
             assert not TVDB().search().series(zap2it_id='EP00750178', imdb_id='tt0436992')
 
     @pytest.mark.system
     def test_search_by_name_and_zap2it_and_imdb(self):
-        with pytest.raises(HTTPError):
+        with pytest.raises(ValueError):
             assert not TVDB().search().series(name='Doctor Who', zap2it_id='EP00750178', imdb_id='tt0436992')
 
     @pytest.mark.system
@@ -74,7 +74,7 @@ class TestSearch:
                                   " wobei er auch eine andere Gestalt annimmt."
 
     @pytest.mark.system
-    def test_search_term_not_found(self):
+    def test_search_by_name_not_found(self):
         res = TVDB().search().series(name='doct')
         assert len(res) == 0
 

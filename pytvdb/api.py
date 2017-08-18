@@ -117,11 +117,14 @@ class Search:
         if zap2it_id:
             params['zap2itId'] = zap2it_id
 
+        if not (bool(name) ^ bool(imdb_id) ^ bool(zap2it_id)):
+            raise ValueError('Cannot search by multiple keys')
+
         try:
             res = self._tvdb._make_request('/search/series', params)
             return self._tvdb._build_list_of_models(models.SeriesSearchData, res['data'])
         except requests.HTTPError as ex:
-            if ex.response.status_code == 404:
+            if name and ex.response.status_code == 404:
                 return []
 
 

@@ -8,6 +8,30 @@ from pytvdb.models import SeriesData, SeriesSearchData, SeriesActorsData, BasicE
 
 class TestModels:
     @pytest.mark.unit
+    def test_jsonify(self):
+        data = {
+            "aliases": [
+                "Doctor Who (1963)",
+                "Dr Who"
+            ],
+            "banner": "graphical/76107-g14.jpg",
+            "firstAired": "1963-11-23",
+            "id": 76107,
+            "network": "BBC One",
+            "overview": "Doctor Who is the longest-running science fiction TV series in history, airing initially from "
+                        "1963 to 1989. Doctor Who is about ideas. It pioneered sophisticated mixed-level storytelling. "
+                        "Its format was the key to its longevity: the Doctor, a mysterious traveller in space and time,"
+                        " travels in his ship, the TARDIS. The TARDIS can take him and his companions anywhere in time"
+                        " and space. Inevitably he finds evil at work wherever he goes...",
+            "seriesName": "Doctor Who",
+            "status": "Ended"
+        }
+        model = SeriesSearchData(**data)
+        json = model.json()
+        assert isinstance(json, str)
+
+
+    @pytest.mark.unit
     def test_search_series_data(self):
         data = {
             "aliases": [

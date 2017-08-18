@@ -1,5 +1,8 @@
+import json
 from collections.abc import Sequence
 from datetime import date, datetime
+
+from pytvdb.encoders import TvdbJSONEncoder
 
 __all__ = ['SeriesSearchData', 'SeriesData', 'SeriesActorsData', 'SeriesEpisodes', 'BasicEpisode', 'Episode',
            'SeriesEpisodesSummary']
@@ -17,6 +20,9 @@ class BaseModel:
         if arg is None:
             return None
         return func(arg)
+
+    def json(self):
+        return json.dumps(self._attrs, cls=TvdbJSONEncoder)
 
 
 class SeriesSearchData(BaseModel):

@@ -1,5 +1,4 @@
 import pytest
-from requests import HTTPError
 
 from pytvdb import TVDB
 
@@ -119,3 +118,18 @@ class TestEpisodes:
         res = TVDB().episodes(183284)
         assert res.episode_name == 'Terror of the Zygons (2)'
         assert res.directors == ['Douglas Camfield']
+
+
+class TestUpdates:
+    @pytest.mark.system
+    def test_get_updates_less_than_one_week(self):
+        res = TVDB().updated().query(from_time=1503105261, to_time=1503191661)
+        assert len(res) == 330
+
+    @pytest.mark.system
+    @pytest.mark.xfail
+    # This is the documented behaviour of the API, but apparently does not actually happen
+    def test_get_updates_more_than_one_week(self):
+        short_res = TVDB().updated().query(from_time=1500513261, to_time=1500599661)
+        long_res = TVDB().updated().query(from_time=1500513261, to_time=1503710786)
+        assert len(short_res) == len(long_res)

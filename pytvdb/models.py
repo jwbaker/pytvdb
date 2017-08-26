@@ -402,3 +402,15 @@ class SeriesEpisodesSummary(BaseModel):
     @property
     def dvd_seasons(self):
         return self._attrs.get('dvdSeasons')
+
+
+class Update(BaseModel):
+    def __init__(self, **kwargs):
+        super(Update, self).__init__({
+            'id': int,
+            'lastUpdated': int
+        }, **kwargs)
+
+    @property
+    def id(self):
+        return self._attrs.get('id')

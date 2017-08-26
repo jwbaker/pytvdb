@@ -92,6 +92,12 @@ class TVDB:
         """
         return Episodes(self, id)
 
+    def updated(self):
+        """
+        Entry point for the TVDB Updates API namespace
+        """
+        return Updates(self)
+
 
 class Search:
 
@@ -182,3 +188,22 @@ class Episodes(models.Episode):
         super(Episodes, self).__init__(**tvdb._make_request('/episodes/' + str(id), {})['data'])
         self._tvdb = tvdb
         self._id = id
+
+
+class Updates:
+    def __init__(self, tvdb):
+        self._tvdb = tvdb
+
+    def query(self, from_time, to_time=None):
+        assert isinstance(from_time, int)
+        assert from_time > 0
+
+        params = {'fromTime': from_time}
+        if to_time is not None:
+            assert isinstance(to_time, int)
+            assert to_time > 0
+            params['toTime'] = to_time
+
+        res = self._tvdb._make_request('/updated/query', params)
+        print(len(res['data']))
+        return self._tvdb._build_list_of_models(models.Update, res['data'])
